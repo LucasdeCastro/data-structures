@@ -84,7 +84,9 @@ link.push(3);
 link.push(4);
 link.push(5);
 
-link.pop(5);
+link.pop(4);
+
+link.push(5, 5);
 link.print();
 
 
