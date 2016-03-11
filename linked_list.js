@@ -4,6 +4,7 @@ function LinkedList(){
 	self.head = null;
 	self.last = null;
 	self.length = 0;
+
 	// Node
 	function Node(value, next){
 		this.value = value;
@@ -74,19 +75,6 @@ function LinkedList(){
 		});
 	};
 };
-
-var link = new LinkedList;
-link.push(0);
-link.push(1);
-link.push(2);
-link.push(3);
-link.push(4);
-link.push(5);
-
-console.log(link.head);
-
-
-
 
 
 

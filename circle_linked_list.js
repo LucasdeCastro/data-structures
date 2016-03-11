@@ -1,4 +1,4 @@
-function DoubleLinkedList(){
+function CicleLinkedList(){
     var self = this;
 
     self.head = null;
@@ -6,10 +6,9 @@ function DoubleLinkedList(){
     self.length = 0;
 
     // Node
-    function Node(value, next, prev){
+    function Node(value, next){
         this.value = value;
         this.next  = next;
-        this.prev  = prev;
     };
 
     // Each LinkedList
@@ -17,6 +16,7 @@ function DoubleLinkedList(){
         var elem  = self.head;
         var position = 0;
         while(true){
+            if(position == self.length) break;
             if(elem && elem.value !== null){
                 fx(elem, position);
                 elem = elem.next;
@@ -37,11 +37,12 @@ function DoubleLinkedList(){
             });
         }else{
             if(self.head){
-                self.last.next = new Node(value, null, self.last);
+                self.last.next = new Node(value, self.head);
                 self.last = self.last.next;
             }else{
-                self.head = new Node(value, null, null);
+                self.head = new Node(value, null);
                 self.last = self.head;
+                self.last.next = self.head;
             }
         }
         self.length ++;
@@ -65,7 +66,9 @@ function DoubleLinkedList(){
                 x.next  = next.next;
                 self.length --;
                 return true;
-            }
+            }else
+                return;
+                // throw new UserException("Index not exists");
         });
     };
 
@@ -76,6 +79,3 @@ function DoubleLinkedList(){
         });
     };
 };
-
-
-
