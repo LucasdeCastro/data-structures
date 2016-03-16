@@ -1,16 +1,16 @@
-module.exports = function (){
+function Queue(){
     var self = this;
     self.stack = null;
 
     // Element Object
-    function Element(value, prev){
+    function Element(value, next){
         this.value = value;
-        this.prev  = prev;
+        this.next  = next;
     };
 
     // Remove top element
     self.pop = function(){
-        self.stack = self.stack.prev;
+        self.stack = self.stack.next;
     };
 
     // Add element
@@ -32,5 +32,15 @@ module.exports = function (){
     self.topEl = function(){
         return self.stack.value;
     };
+
+    self.print = function(){
+        console.log(self.stack);
+    }
 };
 
+var queue = new Queue;
+queue.push(0);
+queue.push(1);
+queue.push(2);
+
+console.log(queue.print());
