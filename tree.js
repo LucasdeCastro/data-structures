@@ -32,6 +32,44 @@ function Tree(){
            node.left = new Node(value, null, null);
     };
 
+    function remove(value, node, root){
+        if(value == node.value){
+        // console.log(node);
+            if(node.left !== null && node.right !== null){
+                if(value == root.right.value){
+                    var _node = node.left;
+                    while(true){
+                        if(_node.right == null){
+                            _node.right = node.right;
+                            break;
+                        }else{
+                            _node = _node.right;
+                        }
+                    };
+                    root.right = node.left;
+                };
+            }else if(node.left && value == root.left.value){
+                if(node.left)
+                    root.left = node.left;
+                else
+                    root.left = node.right;
+            }else if(node.right && value == root.right.value){
+                if(node.right)
+                    root.right = node.left;
+                else
+                    root.right = node.right;
+            }else{
+                if(value == root.left.value)
+                    root.left = null;
+                else
+                    root.right = null;
+            }
+        }else if(value > node.value)
+            remove(value, node.right, node);
+        else
+            remove(value, node.left, node);
+    };
+
     function walkInOrder(node, fx){
         if(node.left)
             walkInOrder(node.left, fx);
@@ -56,6 +94,7 @@ function Tree(){
             walkPreOrder(node.right, fx);
     };
 
+    // Insert in Tree
     self.insert = function(value){
         if(!head)
             head = new Node(value, null, null);
@@ -64,16 +103,18 @@ function Tree(){
         }
     };
 
+    // Search in tree
     self.search = function(value){
         return search(value, head);
     };
 
+    // Walk in tree
     self.walk = function(fx){
         walkInOrder(head, fx);
-        console.log('------------------------');
-        walkPostOrder(head, fx);
-        console.log('------------------------');
-        walkPreOrder(head, fx);
+    };
+
+    self.remove = function(value){
+        remove(value, head, null);
     };
 };
 
@@ -83,12 +124,13 @@ tree.insert(5);
 
 tree.insert(2);
 tree.insert(3);
+tree.insert(4);
 tree.insert(1);
 
 tree.insert(7);
 tree.insert(6);
 tree.insert(8);
 
-tree.walk(function(x){
-    console.log(x);
-});
+tree.remove(2);
+
+tree.walk(x => console.log(x));
