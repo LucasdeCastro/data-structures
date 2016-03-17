@@ -87,6 +87,18 @@ function Tree(){
             walkPreOrder(node.right, fx);
     };
 
+    function reverse(node){
+        if(node.left)
+            reverse(node.left)
+
+        if(node.right)
+            reverse(node.right);
+
+        aux = node.left;
+        node.left = node.right;
+        node.right = aux;
+    };
+
     // Insert in Tree
     self.insert = function(value){
         if(!head)
@@ -106,8 +118,13 @@ function Tree(){
         walkInOrder(head, fx);
     };
 
+    // Remove the element
     self.remove = function(value){
         remove(value, head, head);
+    };
+
+    self.reverse = function(){
+        reverse(head);
     };
 };
 
@@ -123,6 +140,7 @@ tree.insert(7);
 tree.insert(6);
 tree.insert(8);
 
-tree.remove(7);
-
+tree.walk(x => console.log(x));
+tree.reverse();
+console.log('------------------');
 tree.walk(x => console.log(x));
