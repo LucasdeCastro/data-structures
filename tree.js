@@ -33,37 +33,30 @@ function Tree(){
     };
 
     function remove(value, node, root){
-        if(value == node.value){
-        // console.log(node);
-            if(node.left !== null && node.right !== null){
-                if(value == root.right.value){
-                    var _node = node.left;
-                    while(true){
-                        if(_node.right == null){
-                            _node.right = node.right;
-                            break;
-                        }else{
-                            _node = _node.right;
-                        }
-                    };
-                    root.right = node.left;
-                };
-            }else if(node.left && value == root.left.value){
-                if(node.left)
-                    root.left = node.left;
-                else
-                    root.left = node.right;
-            }else if(node.right && value == root.right.value){
-                if(node.right)
-                    root.right = node.left;
-                else
-                    root.right = node.right;
-            }else{
-                if(value == root.left.value)
-                    root.left = null;
-                else
-                    root.right = null;
-            }
+        if(value == root.left.value){
+            node = root.left;
+            var _node = node.left;
+            while(true && node.left !== null){
+                if(_node.right == null){
+                    _node.right = node.right;
+                    break;
+                }else{
+                    _node = _node.right;
+                }
+            };
+            root.left = node.left;
+        }else if(value == root.right.value){
+            node = root.right;
+            var _node = node.left;
+            while(true && node.left !== null){
+                if(_node.right == null){
+                    _node.right = node.right;
+                    break;
+                }else{
+                    _node = _node.right;
+                }
+            };
+            root.right = node.left;
         }else if(value > node.value)
             remove(value, node.right, node);
         else
@@ -114,7 +107,7 @@ function Tree(){
     };
 
     self.remove = function(value){
-        remove(value, head, null);
+        remove(value, head, head);
     };
 };
 
@@ -124,13 +117,12 @@ tree.insert(5);
 
 tree.insert(2);
 tree.insert(3);
-tree.insert(4);
 tree.insert(1);
 
 tree.insert(7);
 tree.insert(6);
 tree.insert(8);
 
-tree.remove(2);
+tree.remove(7);
 
 tree.walk(x => console.log(x));
