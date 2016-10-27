@@ -1,22 +1,22 @@
-function DoubleLinkedList(){
-    var self = this;
+function CicleLinkedList(){
+    let self = this;
 
     self.head = null;
     self.last = null;
     self.length = 0;
 
     // Node
-    function Node(value, next, prev){
+    function Node(value, next){
         this.value = value;
         this.next  = next;
-        this.prev  = prev;
     };
 
     // Each LinkedList
     self.each = function(fx){
-        var elem  = self.head;
-        var position = 0;
+        let elem  = self.head;
+        let position = 0;
         while(true){
+            if(position == self.length) break;
             if(elem && elem.value !== null){
                 fx(elem, position);
                 elem = elem.next;
@@ -31,17 +31,18 @@ function DoubleLinkedList(){
         if(index){
             self.each(function(val, key){
                 if(key == (index -1)){
-                    var next = val.next;
+                    let next = val.next;
                     val.next = new Node(value, next);
                 }
             });
         }else{
             if(self.head){
-                self.last.next = new Node(value, null, self.last);
+                self.last.next = new Node(value, self.head);
                 self.last = self.last.next;
             }else{
-                self.head = new Node(value, null, null);
+                self.head = new Node(value, null);
                 self.last = self.head;
+                self.last.next = self.head;
             }
         }
         self.length ++;
@@ -58,14 +59,16 @@ function DoubleLinkedList(){
         self.each(function(x, key){
             if(index == key){
                 if(x.next)
-                    var next = x.next;
+                    let next = x.next;
                 else
-                    var next = new Node(null, null, null);
+                    let next = new Node(null, null, null);
                 x.value = next.value;
                 x.next  = next.next;
                 self.length --;
                 return true;
-            }
+            }else
+                return;
+                // throw new UserException("Index not exists");
         });
     };
 
@@ -76,6 +79,3 @@ function DoubleLinkedList(){
         });
     };
 };
-
-
-
